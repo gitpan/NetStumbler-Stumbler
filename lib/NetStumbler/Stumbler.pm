@@ -13,8 +13,8 @@ our @ISA = qw(Exporter);
 # We do not Export anything
 #
 
-our $VERSION = '0.05';
-our $wapinfo = NetSutmbler::Wap->new();
+our $VERSION = '0.06';
+our $wapinfo = NetStumbler::Wap->new();
 
 =head1 Object Methods
 
@@ -31,6 +31,7 @@ sub new
 	my $class = ref($proto) || $proto;
     	my $self  = {};
     	bless ($self, $class);
+    	$wapinfo->initialized();
     	return $self;
 }
 
@@ -169,6 +170,102 @@ sub isNS1
     	read(FD,$magic,4);
     	if($magic eq 'NetS') { return 1; }
     	else { return 0; }
+}
+
+=head2 isKismetCSV($file)
+
+Params:
+	-string fully qualified filename
+Returns:
+	true if the file is in Kismet CSV file
+Example:
+	if($obj->isKismetCSV($file))
+	{
+		# do something here
+	}
+
+=cut
+
+sub isKismetCSV
+{
+	my $self = shift;
+    	my $file = shift;
+    	open(FD,$file) or cluck "Failed to open input file $!\n";
+    	my $magic;
+    	binmode(FD);
+    	read(FD,$magic,7);
+    	if($magic eq 'Network') { return 1; }
+    	else { return 0; }	
+}
+
+=head2 parseKismetCSV($file)
+
+Params:
+	-string fully qualified filename
+Returns:
+	list of lists each item in the sublist corresponds to a list from kismet summary file
+Example:
+	$ref = $obj->parseKismetCSV($file);
+	# The list is as follows
+	0  Network
+	1  NetType
+	2  ESSID
+	3  BSSID
+	4  Info
+	5  Channel
+	6  Cloaked
+	7  WEP
+	8  Decrypted
+	9  MaxRate
+	10 MaxSeenRate
+	11 Beacon
+	12 LLC
+	13 Data
+	14 Crypt
+	15 Weak
+	16 Total
+	17 Carrier
+	18 Encoding
+	19 FirstTime
+	20 LastTime
+	21 BestQuality
+	22 BestSignal
+	23 BestNoise
+	24 GPSMinLat 
+	25 GPSMinLon
+	26 GPSMinAlt
+	27 GPSMinSpd
+	28 GPSMaxLat
+	29 GPSMaxLon
+	30 GPSMaxAlt
+	31 GPSMaxSpd
+	32 GPSBestLat
+	33 GPSBestLon
+	34 GPSBestAlt
+	35 DataSize
+	36 IPType
+	37 IP
+	#
+
+=cut
+
+sub parseKismetCSV
+{
+	my $self = shift;
+	my $file = shift;
+	my $fh;
+	open(FH,$file);
+	$fh = \*FH;
+	my $line;
+	<$fh>;
+	$line = <$fh>;
+	my @list;
+	while(<$fh>)
+	{
+		$line = $_;
+		push(@list,[split(/;/,$line)]);
+	}
+	return @list;
 }
 
 =head2 parseNS1($file)
