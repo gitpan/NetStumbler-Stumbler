@@ -10,3 +10,7 @@ Revision history for Perl extension NetStumbler::Stumbler.
 	- removed perl version requirement for CPAN
 0.05  Wed Jan 05 08:00:00 2005
 	- fixed a bug when I moved code from this module to wap module
+0.06  Sunday Feb 13 10:00:00 2005
+	- updated code to use new wap module
+0.07  Wednsday Feb 16 07:40:00 2005
+	- fix test cases

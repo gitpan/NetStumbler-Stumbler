@@ -13,7 +13,7 @@ our @ISA = qw(Exporter);
 # We do not Export anything
 #
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 our $wapinfo = NetStumbler::Wap->new();
 
 =head1 Object Methods
@@ -31,7 +31,7 @@ sub new
 	my $class = ref($proto) || $proto;
     	my $self  = {};
     	bless ($self, $class);
-    	$wapinfo->initialized();
+    	$wapinfo->initialize();
     	return $self;
 }
 
