@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Carp qw(cluck carp croak);
 
+require NetStumbler::Wap;
 require Exporter;
 
 our @ISA = qw(Exporter);
@@ -12,7 +13,8 @@ our @ISA = qw(Exporter);
 # We do not Export anything
 #
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
+our $wapinfo = NetSutmbler::Wap->new();
 
 =head1 Object Methods
 
@@ -242,7 +244,7 @@ sub readAPInfo
     push(@apData,$blat);
     push(@apData,$blon);
     push(@apData,$sid);
-    if(isInfrastructure($flags))
+    if($wapinfo->isInfrastructure($flags))
     {
 	push(@apData,"BSS");
     }
@@ -530,12 +532,10 @@ NetStumbler::Stumbler - Module to parse netstumbler data
 
   use NetStumbler::Stumbler;
   my $lin = NetStumbler::Stumbler->new();
-  $lin->isAdhoc($flags);
-  $lin->isInfrastructure($flags);
   $lin->isSummary($file);
   $lin->isNS1($file);
-  $lin->hasWEP($flags);
-
+  $lin->parseNS1($file);
+  
 =head1 DESCRIPTION
 
 This class has several methods to parse NetStumbler data file
