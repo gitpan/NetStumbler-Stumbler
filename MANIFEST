@@ -7,3 +7,4 @@ test.ns1
 test.summary
 t/NetStumbler-Stumbler.t
 lib/NetStumbler/Stumbler.pm
+META.yml                                 Module meta-data (added by MakeMaker)
