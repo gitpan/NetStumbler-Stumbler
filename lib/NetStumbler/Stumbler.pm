@@ -1,6 +1,5 @@
 package NetStumbler::Stumbler;
 
-use 5.008000;
 use strict;
 use warnings;
 use Carp qw(cluck carp croak);
@@ -13,7 +12,7 @@ our @ISA = qw(Exporter);
 # We do not Export anything
 #
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 Object Methods
 

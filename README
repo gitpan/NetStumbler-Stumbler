@@ -14,6 +14,10 @@ Version 0.02 -- 5/11/2004
 Version 0.03 -- 5/12/2004
 	- changed version requirement to 5.8
 
+Version 0.04 -- 5/13/2004
+	-- remove perl version requirements for CPAN testing
+
+
 INSTALLATION
 
 To install this module type the following:
