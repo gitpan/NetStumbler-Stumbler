@@ -8,6 +8,11 @@ it was initially created for use with perl scripts under netstumbler, hence the 
 package name. Got a better suggestion for a package name send me an email to
 washu@olypmus.net. This package provides a methods to parse NetStumbler files
 
+Version 0.02 -- 5/11/2004
+	-- Added use warnings back in
+
+Version 0.03 -- 5/12/2004
+	- changed version requirement to 5.8
 
 INSTALLATION
 

@@ -2,6 +2,7 @@ Revision history for Perl extension NetStumbler::Stumbler.
 
 0.01  Tue May 11 09:13:21 2004
 	- Initial CPAN import
-
 0.02  Tue May 11 15:38:00 2004
 	- Added META.yml to the distribution
+0.03  Wed May 12 16:00:00 2004
+	- changed version requirement to 5.8

@@ -1,6 +1,6 @@
 package NetStumbler::Stumbler;
 
-use 5.008003;
+use 5.008000;
 use strict;
 use warnings;
 use Carp qw(cluck carp croak);
@@ -13,11 +13,11 @@ our @ISA = qw(Exporter);
 # We do not Export anything
 #
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 Object Methods
 
-=head2 NetStumbler::Stumbler->new()
+=head2 new()
 
 Returns a new Stumbler object.
 
@@ -33,71 +33,8 @@ sub new
     	return $self;
 }
 
-=head2 NetStumbler::isAdhoc($flags)
 
-Params:
-	-number 801.11 Capability flags
-Returns:
-	true is the flags indicate the access point is in adhoc mode
-Example:
-	if($obj->isAdhoc($flags))
-	{
-		# do something here
-	}
-
-=cut
-
-sub isAdhoc
-{
-
-	my $self = shift;
-	my $flags = shift;
-	return $flags & 0x0002;
-}
-
-=head2 NetStumbler::isInfrascruture($flags)
-
-Params:
-	-number 801.11 Capability flags
-Returns:
-	true is the flags indicate the access point is in infrastructure mode
-Example:
-	if($obj->isInfrascructure($flags))
-	{
-		# do something here
-	}
-
-=cut
-
-sub isInfrastructure
-{
-	my $self = shift;
-	my $flags = shift;
-	return !isAdhoc($flags);
-}
-
-=head2 NetStumbler::hasWEP($flags)
-
-Params:
-	-number 801.11 Capability flags
-Returns:
-	true is the flags indicate the access point has WEP enabled
-Example:
-	if($obj->hasWEP($flags))
-	{
-		# do something here
-	}
-
-=cut
-
-sub hasWEP
-{
-	my $flags = shift;
-	return $flags & 0x0010;
-}
-
-
-=head2 NetStumbler::parseNSSummaryLine($line)
+=head2 parseNSSummaryLine($line)
 
 Params:
 	-string A line from a summary file
@@ -169,7 +106,7 @@ sub parseNSSummaryLine
 	}
 }
 
-=head2 NetStumbler::isSummary($file)
+=head2 isSummary($file)
 
 Params:
 	-string fully qualified filename
@@ -207,7 +144,7 @@ sub isSummary
     	return $found;
 }
 
-=head2 NetStumbler::isNS1($file)
+=head2 isNS1($file)
 
 Params:
 	-string fully qualified filename
@@ -233,7 +170,7 @@ sub isNS1
     	else { return 0; }
 }
 
-=head2 NetStumbler::parseNS1($file)
+=head2 parseNS1($file)
 
 Params:
 	-string fully qualified filename
@@ -267,7 +204,7 @@ sub parseNS1
 
 =head1 Private Methods
 
-=head2 NetStumbler::readAPInfo($fileHandle,$fileVersion)
+=head2 readAPInfo($fileHandle,$fileVersion)
 
 Params:
 	reference - Filehandle reference
@@ -371,7 +308,7 @@ sub readAPInfo
     return @apData;
 }
 
-=head2 NetStumbler::readAPData($fileHandle,$fileVersion)
+=head2 readAPData($fileHandle,$fileVersion)
 
 Params:
 	reference - Filehandle reference
@@ -398,7 +335,7 @@ sub readAPData
     }
 }
 
-=head2 NetStumbler::readGPSData($fileHandle)
+=head2 readGPSData($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -423,7 +360,7 @@ sub readGPSData
     $hdop = readDouble($fh);
 }
 
-=head2 NetStumbler::readint64($fileHandle)
+=head2 readint64($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -446,7 +383,7 @@ sub readint64
     return (readint32($fh) << 32) + readint32($fh);
 }
 
-=head2 NetStumbler::readDouble($fileHandle)
+=head2 readDouble($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -468,7 +405,7 @@ sub readDouble
     return unpack("d",$l);        
 }
 
-=head2 NetStumbler::readint32($fileHandle)
+=head2 readint32($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -490,7 +427,7 @@ sub readint32
     return unpack("l",$l);    
 }
 
-=head2 NetStumbler::readUint32($fileHandle)
+=head2 readUint32($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -512,7 +449,7 @@ sub readUint32
     return unpack("L",$l);
 }
 
-=head2 NetStumbler::readUint8($fileHandle)
+=head2 readUint8($fileHandle)
 
 Params:
 	reference - Filehandle reference
@@ -534,7 +471,7 @@ sub readUint8
     return unpack("C",$l);
 }
 
-=head2 NetStumbler::readChars($fileHandle,$length)
+=head2 readChars($fileHandle,$length)
 
 Params:
 	reference - Filehandle reference
@@ -558,7 +495,7 @@ sub readChars
     return unpack("A*",$l);
 }
 
-=head2 NetStumbler::ensurePos($fileHandle,$prePosition,$postPosition,$amountNeeded)
+=head2 ensurePos($fileHandle,$prePosition,$postPosition,$amountNeeded)
 
 This method was aadded due to an odd behavior with Perl5.8 read would sometimes
 put the file pointer 1 byte beyond where it was supposed to be. This method fixes that issue
@@ -586,7 +523,7 @@ sub ensurePos
 __END__
 # Below is stub documentation for your module. You'd better edit it!
 
-=head1 NtStumbler::Stumbler
+=head1 NAME
 
 NetStumbler::Stumbler - Module to parse netstumbler data
 
@@ -612,8 +549,8 @@ None by default.
 
 =head1 SEE ALSO
 
-<a href="http://www.netstumbler.org">Net Stumbler</a>
-<a href="http://stumbler.net/ns1files.html">NS1 Information</a>
+http://www.netstumbler.org Net Stumbler
+http://stumbler.net/ns1files.html NS1 Information
 
 =head1 AUTHOR
 
